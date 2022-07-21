@@ -41,6 +41,12 @@ from PySide6.QtGui import (
     QTransform,
 )
 from PySide6.QtWidgets import QApplication, QLabel, QPushButton, QSizePolicy, QWidget
+import sys
+
+if getattr(sys, 'frozen', False):  # Running as compiled
+    running_dir = sys._MEIPASS + "/image/"  # Same path name than pyinstaller option
+else:
+    running_dir = "./"  # Path name when run with Python interpreter
 
 
 class Ui_Form(object):
@@ -53,7 +59,7 @@ class Ui_Form(object):
         self.Banner = QLabel(Form)
         self.Banner.setObjectName("Banner")
         self.Banner.setGeometry(QRect(10, 10, 701, 291))
-        self.Banner.setPixmap(QPixmap("Banner2.png"))
+        self.Banner.setPixmap(QPixmap(f"{running_dir}Banner2.png"))
         self.Banner.setAlignment(Qt.AlignCenter)
         self.GenNameBtn = QPushButton(Form)
         self.GenNameBtn.setObjectName("GenNameBtn")

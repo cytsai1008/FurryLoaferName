@@ -10,4 +10,7 @@
 
 # 銘謝：  
 [https://husano896.github.io/HTMLGames/FurryNameGen/](https://husano896.github.io/HTMLGames/FurryNameGen/) 提供靈感  
-匿名貼文者提供快樂
+匿名貼文者提供快樂  
+
+# 註記：
+我只是做好玩的，有Bug別找我 ~~我不會修~~
