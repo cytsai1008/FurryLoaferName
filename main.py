@@ -66,7 +66,7 @@ class MainWindow(PySide6.QtWidgets.QMainWindow):
 
 
 if __name__ == "__main__":
-    if getattr(sys, 'frozen', False):  # Running as compiled
+    if getattr(sys, "frozen", False):  # Running as compiled
         running_dir = sys._MEIPASS + "/image/"  # Same path name than pyinstaller option
     else:
         running_dir = "./"  # Path name when run with Python interpreter

@@ -43,7 +43,7 @@ from PySide6.QtGui import (
 from PySide6.QtWidgets import QApplication, QLabel, QPushButton, QSizePolicy, QWidget
 import sys
 
-if getattr(sys, 'frozen', False):  # Running as compiled
+if getattr(sys, "frozen", False):  # Running as compiled
     running_dir = sys._MEIPASS + "/image/"  # Same path name than pyinstaller option
 else:
     running_dir = "./"  # Path name when run with Python interpreter
