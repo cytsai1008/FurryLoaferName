@@ -6,6 +6,7 @@ import webbrowser
 import PySide6.QtCore
 import PySide6.QtGui
 import PySide6.QtWidgets
+import requests
 
 from Main_Window import Ui_Form
 
@@ -81,7 +82,7 @@ def background1_click(event=None):
 
 def background2_click(event=None):
     webbrowser.open(
-        "https://www.facebook.com/permalink.php?story_fbid=pfbid02Hd6BWd7JH8YiZhGUmu8FY38tSnrXczperjvxc4D4pb2uxVWfzv3SmKxKi3mDLvpBl&id=106417180993143&__cft__[0]=AZUNK7TSJNWx4xFuWeYV77J5B80sYKtpQDv6F4zHKWyBnO3pCql1v1lVHQRzGPGGv0G3l75s3mi9o5h7XZYw01fwfcMlSoCNCNfOTWMhZxAIhLh9wuqAZygxmcfTrfS_v6_Tat2-NANj0PSMcZl8OZArjinTordl_3sWrxyCbLC56Q&__tn__=%2CO%2CP-R"
+        r"https://www.facebook.com/permalink.php?story_fbid=pfbid02Hd6BWd7JH8YiZhGUmu8FY38tSnrXczperjvxc4D4pb2uxVWfzv3SmKxKi3mDLvpBl&id=106417180993143&__cft__[0]=AZUNK7TSJNWx4xFuWeYV77J5B80sYKtpQDv6F4zHKWyBnO3pCql1v1lVHQRzGPGGv0G3l75s3mi9o5h7XZYw01fwfcMlSoCNCNfOTWMhZxAIhLh9wuqAZygxmcfTrfS_v6_Tat2-NANj0PSMcZl8OZArjinTordl_3sWrxyCbLC56Q&__tn__=%2CO%2CP-R"
     )
 
 
@@ -104,6 +105,7 @@ class MainWindow(PySide6.QtWidgets.QMainWindow):
             PySide6.QtWidgets.QSizePolicy.Expanding,
             PySide6.QtWidgets.QSizePolicy.Expanding,
         )
+        self.gh_api_rel_check()
         bg_timer = PySide6.QtCore.QTimer()
         bg_timer.timeout.connect(self.bg_update1())
         bg_timer.start(5000)
@@ -141,6 +143,19 @@ class MainWindow(PySide6.QtWidgets.QMainWindow):
         self.ui.Banner.setPixmap(PySide6.QtGui.QPixmap(f"{running_dir}banner6.png"))
         self.ui.Banner.mousePressEvent = self.background_click_class2
         PySide6.QtCore.QTimer.singleShot(5000, self.bg_update1)
+
+    def gh_api_rel_check(self):
+        try:
+            rel_res = requests.get("https://api.github.com/repos/cytsai1008/FurryLoaferName/releases").json()
+            current_rel = "v1.1.1"
+            if rel_res[0]["tag_name"] != current_rel:
+                msg_window = PySide6.QtWidgets.QMessageBox.question(
+                    self, "更新通知", f"有新版本可以下載，目前版本為 {current_rel}，最新版本為 {rel_res[0]['tag_name']}")
+                if msg_window == PySide6.QtWidgets.QMessageBox.Yes:
+                    webbrowser.open(rel_res[0]["html_url"])
+                    sys.exit(0)
+        except Exception:
+            pass
 
 
 if __name__ == "__main__":
