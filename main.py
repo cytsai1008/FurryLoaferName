@@ -91,6 +91,8 @@ if getattr(sys, "frozen", False):  # Running as compiled
 else:
     running_dir = "./"  # Path name when run with Python interpreter
 
+current_rel = "v1.1.1"
+
 
 class MainWindow(PySide6.QtWidgets.QMainWindow):
     def __init__(self):
@@ -105,6 +107,8 @@ class MainWindow(PySide6.QtWidgets.QMainWindow):
             PySide6.QtWidgets.QSizePolicy.Expanding,
             PySide6.QtWidgets.QSizePolicy.Expanding,
         )
+        self.ui.VersionTag.setAlignment(PySide6.QtCore.Qt.AlignRight)
+        self.ui.VersionTag.setText(f"版本: {current_rel}")
         self.gh_api_rel_check()
         bg_timer = PySide6.QtCore.QTimer()
         bg_timer.timeout.connect(self.bg_update1())
@@ -146,11 +150,15 @@ class MainWindow(PySide6.QtWidgets.QMainWindow):
 
     def gh_api_rel_check(self):
         try:
-            rel_res = requests.get("https://api.github.com/repos/cytsai1008/FurryLoaferName/releases").json()
-            current_rel = "v1.1.1"
+            rel_res = requests.get(
+                "https://api.github.com/repos/cytsai1008/FurryLoaferName/releases"
+            ).json()
             if rel_res[0]["tag_name"] != current_rel:
                 msg_window = PySide6.QtWidgets.QMessageBox.question(
-                    self, "更新通知", f"有新版本可以下載，目前版本為 {current_rel}，最新版本為 {rel_res[0]['tag_name']}")
+                    self,
+                    "更新通知",
+                    f"有新版本可以下載，目前版本為 {current_rel}，最新版本為 {rel_res[0]['tag_name']}",
+                )
                 if msg_window == PySide6.QtWidgets.QMessageBox.Yes:
                     webbrowser.open(rel_res[0]["html_url"])
                     sys.exit(0)
@@ -172,9 +180,7 @@ if __name__ == "__main__":
         msg = "嗚嗚你們不要再更新了啦QAQ"
     splash = PySide6.QtWidgets.QSplashScreen(pixmap)
     splash.show()
-    splash.showMessage(
-        msg, PySide6.QtCore.Qt.AlignBottom, PySide6.QtCore.Qt.white
-    )
+    splash.showMessage(msg, PySide6.QtCore.Qt.AlignBottom, PySide6.QtCore.Qt.white)
     time.sleep(2)
     app.processEvents()
     window = MainWindow()

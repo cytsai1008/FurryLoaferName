@@ -62,6 +62,19 @@
     <string>產生一個雷包名</string>
    </property>
   </widget>
+  <widget class="QLabel" name="VersionTag">
+   <property name="geometry">
+    <rect>
+     <x>572</x>
+     <y>400</y>
+     <width>141</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

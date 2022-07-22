@@ -47,6 +47,9 @@ class Ui_Form(object):
         font = QFont()
         font.setPointSize(25)
         self.GenNameBtn.setFont(font)
+        self.VersionTag = QLabel(Form)
+        self.VersionTag.setObjectName("VersionTag")
+        self.VersionTag.setGeometry(QRect(572, 400, 141, 20))
 
         self.retranslateUi(Form)
 
@@ -66,5 +69,6 @@ class Ui_Form(object):
                 "Form", "\u7522\u751f\u4e00\u500b\u96f7\u5305\u540d", None
             )
         )
+        self.VersionTag.setText(QCoreApplication.translate("Form", "TextLabel", None))
 
     # retranslateUi
