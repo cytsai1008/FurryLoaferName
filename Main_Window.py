@@ -8,40 +8,20 @@
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
+import sys
+
 from PySide6.QtCore import (
     QCoreApplication,
-    QDate,
-    QDateTime,
-    QLocale,
     QMetaObject,
-    QObject,
-    QPoint,
     QRect,
     QSize,
-    QTime,
-    QUrl,
     Qt,
 )
 from PySide6.QtGui import (
-    QBrush,
-    QColor,
-    QConicalGradient,
-    QCursor,
     QFont,
-    QFontDatabase,
-    QGradient,
-    QIcon,
-    QImage,
-    QKeySequence,
-    QLinearGradient,
-    QPainter,
-    QPalette,
     QPixmap,
-    QRadialGradient,
-    QTransform,
 )
-from PySide6.QtWidgets import QApplication, QLabel, QPushButton, QSizePolicy, QWidget
-import sys
+from PySide6.QtWidgets import QLabel, QPushButton
 
 if getattr(sys, "frozen", False):  # Running as compiled
     running_dir = sys._MEIPASS + "/image/"  # Same path name than pyinstaller option
@@ -63,7 +43,7 @@ class Ui_Form(object):
         self.Banner.setAlignment(Qt.AlignCenter)
         self.GenNameBtn = QPushButton(Form)
         self.GenNameBtn.setObjectName("GenNameBtn")
-        self.GenNameBtn.setGeometry(QRect(20, 320, 681, 81))
+        self.GenNameBtn.setGeometry(QRect(10, 320, 701, 81))
         font = QFont()
         font.setPointSize(25)
         self.GenNameBtn.setFont(font)

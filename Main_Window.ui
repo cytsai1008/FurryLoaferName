@@ -47,9 +47,9 @@
   <widget class="QPushButton" name="GenNameBtn">
    <property name="geometry">
     <rect>
-     <x>20</x>
+     <x>10</x>
      <y>320</y>
-     <width>681</width>
+     <width>701</width>
      <height>81</height>
     </rect>
    </property>
