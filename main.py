@@ -151,12 +151,14 @@ if __name__ == "__main__":
     app = PySide6.QtWidgets.QApplication()
     if random.randint(0, 1) == 0:
         pixmap = PySide6.QtGui.QPixmap(f"{running_dir}Banner3.png")
+        msg = "準備好成為雷包了嗎"
     else:
         pixmap = PySide6.QtGui.QPixmap(f"{running_dir}Banner7.png")
+        msg = "嗚嗚你們不要再更新了啦QAQ"
     splash = PySide6.QtWidgets.QSplashScreen(pixmap)
     splash.show()
     splash.showMessage(
-        "準備好成為雷包了嗎", PySide6.QtCore.Qt.AlignBottom, PySide6.QtCore.Qt.white
+        msg, PySide6.QtCore.Qt.AlignBottom, PySide6.QtCore.Qt.white
     )
     time.sleep(2)
     app.processEvents()
