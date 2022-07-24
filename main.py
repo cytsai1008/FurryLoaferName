@@ -11,61 +11,16 @@ import requests
 from Main_Window import Ui_Form
 
 Name_Collection = (
-    "雷",
-    "雪",
-    "風",
-    "沃",
-    "亞",
-    "卡",
-    "烏",
-    "音",
-    "白",
-    "瑟",
-    "特",
-    "嵐",
-    "凱",
-    "狐",
-    "魯",
-    "爾",
-    "天",
-    "吉",
-    "斯",
-    "路",
-    "歐",
-    "犬",
-    "小",
-    "克",
-    "幻",
-    "狼",
-    "洛",
-    "雨",
-    "星",
-    "靈",
-    "阿",
-    "羽",
-    "夢",
-    "焰",
-    "貓",
-    "利",
-    "木",
-    "太",
-    "姆",
-    "恩",
-    "哈",
-    "谷",
-    "墨",
-    "冰",
-    "喵",
-    "摩",
-    "拉",
-    "龍",
-    "提",
-    "空",
+    "雷", "雪", "風", "沃", "亞", "卡", "烏", "音", "白", "瑟", "特", "嵐", "凱", "狐", "魯", "爾", "天", "吉", "斯", "路", "歐", "犬", "小",
+    "克", "幻", "狼", "洛", "雨", "星", "靈", "阿", "羽", "夢", "焰", "貓", "利", "木", "太", "姆", "恩", "哈", "谷", "墨", "冰", "喵", "摩",
+    "拉", "龍", "提", "空", "秋", "萊", "比", "冬", "夜", "蒼", "伊", "達", "王", "柴", "豹", "藍", "石", "川", "痕", "虎", "尼", "汪", "波",
+    "狸", "塔", "艾", "烈", "迪", "諾", "獅", "灰", "瑞", "德", "光", "獺", "格", "倫", "松", "寒", "安", "力", "兔", "米", "恆", "賽", "水",
+    "赤", "楓", "光", "紅", "納", "熊", "海", "影"
 )
 
 
 def name_gen():
-    if random.randint(0, 999999) in (603683, 603691):
+    if random.randint(0, 999999) in (603683, 603691, 603718):
         webbrowser.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
     name_len = random.randint(1, 4)
     name = ""
@@ -86,12 +41,18 @@ def background2_click(event=None):
     )
 
 
+def background3_click(event=None):
+    webbrowser.open(
+        r"https://www.facebook.com/permalink.php?story_fbid=pfbid02DRzMhBzHFGBzseUBrYJ5U5HHvwKwHB5GrreAUhBQ3y8e5eFCXHuL54pz2dBgMzdWl&id=106417180993143&__cft__[0]=AZUNEORVS609d5Fnd41BrjMsH6dCWIjHqLrwfSw-uIvxrwWuG5fvjjO08URFyT8XJF7ntEUsTnip0Z5c2ajuJ_or-aKVkUfQyGudbrEzd2rf9_fObxn1BFBFUJEwcCdsxq8nxJYDJt-_HhvpVxbfo0VC&__tn__=%2CO%2CP-R"
+    )
+
+
 if getattr(sys, "frozen", False):  # Running as compiled
     running_dir = sys._MEIPASS + "/image/"  # Same path name than pyinstaller option
 else:
     running_dir = "./"  # Path name when run with Python interpreter
 
-current_rel = "v1.1.1"
+current_rel = "v1.2.0"
 
 
 class MainWindow(PySide6.QtWidgets.QMainWindow):
@@ -138,6 +99,10 @@ class MainWindow(PySide6.QtWidgets.QMainWindow):
         PySide6.QtWidgets.QMessageBox.information(self, "隱藏功能", "即將開啟原貼文")
         background2_click(event)
 
+    def background_click_class3(self, event):
+        PySide6.QtWidgets.QMessageBox.information(self, "隱藏功能", "即將開啟原貼文")
+        background3_click(event)
+
     def bg_update1(self):
         self.ui.Banner.setPixmap(PySide6.QtGui.QPixmap(f"{running_dir}banner2.png"))
         self.ui.Banner.mousePressEvent = self.background_click_class1
@@ -146,6 +111,11 @@ class MainWindow(PySide6.QtWidgets.QMainWindow):
     def bg_update2(self):
         self.ui.Banner.setPixmap(PySide6.QtGui.QPixmap(f"{running_dir}banner6.png"))
         self.ui.Banner.mousePressEvent = self.background_click_class2
+        PySide6.QtCore.QTimer.singleShot(5000, self.bg_update3)
+
+    def bg_update3(self):
+        self.ui.Banner.setPixmap(PySide6.QtGui.QPixmap(f"{running_dir}banner8.png"))
+        self.ui.Banner.mousePressEvent = self.background_click_class3
         PySide6.QtCore.QTimer.singleShot(5000, self.bg_update1)
 
     def gh_api_rel_check(self):
@@ -172,12 +142,15 @@ if __name__ == "__main__":
     else:
         running_dir = "./"  # Path name when run with Python interpreter
     app = PySide6.QtWidgets.QApplication()
-    if random.randint(0, 1) == 0:
+    if random.randint(0, 2) == 0:
         pixmap = PySide6.QtGui.QPixmap(f"{running_dir}Banner3.png")
         msg = "準備好成為雷包了嗎"
-    else:
+    elif random.randint(0, 2) == 1:
         pixmap = PySide6.QtGui.QPixmap(f"{running_dir}Banner7.png")
         msg = "嗚嗚你們不要再更新了啦QAQ"
+    else:
+        pixmap = PySide6.QtGui.QPixmap(f"{running_dir}Banner9.png")
+        msg = "哭阿怎麼又更新了"
     splash = PySide6.QtWidgets.QSplashScreen(pixmap)
     splash.show()
     splash.showMessage(msg, PySide6.QtCore.Qt.AlignBottom, PySide6.QtCore.Qt.white)
