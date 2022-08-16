@@ -1,3 +1,5 @@
+import contextlib
+import os.path
 import random
 import sys
 import time
@@ -20,13 +22,10 @@ Name_Collection = (
 
 
 def name_gen():
-    if random.randint(0, 999999) in (603683, 603691, 603718):
+    if random.randint(0, 999999) in {603683, 603691, 603718}:
         webbrowser.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
     name_len = random.randint(1, 4)
-    name = ""
-    for i in range(name_len):
-        name += random.choice(Name_Collection)
-    return name
+    return "".join(random.choice(Name_Collection) for _ in range(name_len))
 
 
 def background1_click(event=None):
@@ -47,12 +46,7 @@ def background3_click(event=None):
     )
 
 
-if getattr(sys, "frozen", False):  # Running as compiled
-    running_dir = sys._MEIPASS + "/image/"  # Same path name than pyinstaller option
-else:
-    running_dir = "./"  # Path name when run with Python interpreter
-
-current_rel = "v1.2.0"
+current_rel = "v1.2.1"
 
 
 class MainWindow(PySide6.QtWidgets.QMainWindow):
@@ -119,28 +113,26 @@ class MainWindow(PySide6.QtWidgets.QMainWindow):
         PySide6.QtCore.QTimer.singleShot(5000, self.bg_update1)
 
     def gh_api_rel_check(self):
-        try:
-            rel_res = requests.get(
-                "https://api.github.com/repos/cytsai1008/FurryLoaferName/releases"
-            ).json()
+        with contextlib.suppress(Exception):
+            rel_res = requests.get("https://api.github.com/repos/cytsai1008/FurryLoaferName/releases").json()
+
             if rel_res[0]["tag_name"] != current_rel:
-                msg_window = PySide6.QtWidgets.QMessageBox.question(
-                    self,
-                    "更新通知",
-                    f"有新版本可以下載，目前版本為 {current_rel}，最新版本為 {rel_res[0]['tag_name']}",
-                )
+                msg_window = PySide6.QtWidgets.QMessageBox.question(self, "更新通知",
+                                                                    f"有新版本可以下載，目前版本為 {current_rel}，最新版本為 {rel_res[0]['tag_name']}")
+
                 if msg_window == PySide6.QtWidgets.QMessageBox.Yes:
                     webbrowser.open(rel_res[0]["html_url"])
                     sys.exit(0)
-        except Exception:
-            pass
 
 
 if __name__ == "__main__":
-    if getattr(sys, "frozen", False):  # Running as compiled
-        running_dir = sys._MEIPASS + "/image/"  # Same path name than pyinstaller option
+    if (sys.argv[0]).find(".py") == -1:
+        if os.path.exists(f"{sys.argv[0]}/image"):
+            running_dir = f"{os.path.dirname(sys.argv[0])}/image/"
+        else:
+            running_dir = f"{os.path.dirname(__file__)}/image/"
     else:
-        running_dir = "./"  # Path name when run with Python interpreter
+        running_dir = "./image/"
     app = PySide6.QtWidgets.QApplication()
     if random.randint(0, 2) == 0:
         pixmap = PySide6.QtGui.QPixmap(f"{running_dir}Banner3.png")

@@ -1,0 +1,3 @@
+REM pyinstaller -F -w --add-data "./image/Banner2.png;image" --add-data "./image/Banner3.png;image" --add-data "./image/Banner6.png;image" --add-data "./image/Banner7.png;image" --add-data "./image/Banner8.png;image" --add-data "./image/Banner9.png;image" .\main.py
+REM python -m nuitka --onefile --enable-plugin=pyside6 --include-data-files=./image/*.png=image/ --disable-console --windows-disable-console --windows-product-version=1.2.1 --clang --msvc=latest .\main.py
+python -m nuitka --onefile --enable-plugin=pyside6 --include-data-files=./image/*.png=image/ --disable-console --windows-disable-console --windows-product-version=1.2.1 .\main.py
